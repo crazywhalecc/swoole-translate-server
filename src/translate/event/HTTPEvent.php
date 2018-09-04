@@ -39,7 +39,8 @@ class HTTPEvent
         "la" => "la",
         "jv" => "jv",
         "bg" => "bg",
-        "da" => "da"
+        "da" => "da",
+        "fi" => "fi"
     ];
 
     public function __construct(swoole_http_request $request, swoole_http_response $response) {
