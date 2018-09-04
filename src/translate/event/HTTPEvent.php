@@ -93,6 +93,8 @@ class HTTPEvent
                     $response->end(json_encode(["status" => 199, "err_message" => "Invalid parameter. \"text\" required."]));
                     return;
                 }
+                if (mb_strlen($dat["text"]) >= 201) $dat["text"] = "你的话太长了，请分段输入进来";
+                if ($dat["text"] === "") $dat["text"] = "空消息";
                 $result = $this->translate($dat["text"], $dat["origin"], $dat["target"], false, false);
                 $response->header("Content-Type", 'application/json; charset=utf-8');
                 $response->end(json_encode($result));
@@ -106,6 +108,8 @@ class HTTPEvent
                     $response->end(json_encode(["status" => 199, "err_message" => "Invalid parameter. \"text\" required."]));
                     return;
                 }
+                if (mb_strlen($dat["text"]) >= 201) $dat["text"] = "你的话太长了，请分段输入进来";
+                if ($dat["text"] === "") $dat["text"] = "空消息";
                 $result = $this->translate($dat["text"], $dat["origin"], $dat["target"], true, false);
                 $response->header("Content-Type", 'application/json; charset=utf-8');
                 $response->end(json_encode($result));
@@ -119,6 +123,8 @@ class HTTPEvent
                     $response->end(json_encode(["status" => 199, "err_message" => "Invalid parameter. \"text\" required."]));
                     return;
                 }
+                if (mb_strlen($dat["text"]) >= 201) $dat["text"] = "你的话太长了，请分段输入进来";
+                if ($dat["text"] === "") $dat["text"] = "空消息";
                 $result = $this->translate($dat["text"], $dat["origin"], $dat["target"], true, true);
                 $response->header("Content-Type", 'application/json; charset=utf-8');
                 $response->end(json_encode($result));
