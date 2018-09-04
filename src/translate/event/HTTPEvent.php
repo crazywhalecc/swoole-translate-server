@@ -79,11 +79,11 @@ class HTTPEvent
             $response->end(json_encode(["status" => 199, "err_message" => "Invalid parameter."]));
             return;
         }
-        if (!isset($dat["trans-type"])) {
+        if (!isset($dat["trans_type"])) {
             $response->end(json_encode(["status" => 199, "err_message" => "Invalid parameter. \"trans-type\" required."]));
             return;
         }
-        switch ($dat["trans-type"]) {
+        switch ($dat["trans_type"]) {
             case "translate":
                 if (!isset($dat["origin"]) || !isset($dat["target"])) {
                     $response->end(json_encode(["status" => 199, "err_message" => "Invalid parameter. \"origin\" and \"target\" required."]));
@@ -159,6 +159,7 @@ class HTTPEvent
                 "content" => trim(implode("\n", $out)),
                 "record_id" => $record_id
             ];
+            unlink($filename);
             return $reply;
         } elseif ($need_voice === true && $no_translate === true) {
             $record_id = md5($text);
@@ -172,6 +173,7 @@ class HTTPEvent
                 "content" => "",
                 "record_id" => $record_id
             ];
+            unlink($filename);
             return $reply;
         } else {
             exec('cat ' . $filename . ' | trans ' . $origin . ':' . $target . ' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"', $out);
@@ -184,6 +186,7 @@ class HTTPEvent
                 "err_message" => "ok",
                 "content" => $out
             ];
+            unlink($filename);
             return $reply;
         }
     }
